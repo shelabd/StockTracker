@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stock Tracker</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+        <style>
+            body {
+                font-family: 'Roboto', sans-serif;
+                background-color: #f1f1f1;
+                margin: 0;
+            }
+            .header {
+                background-color: #4CAF50;
+                color: #fff;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+            }
+            .header h1 {
+                margin: 0;
+            }
+            .header a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 10px;
+                border-radius: 3px;
+                background-color: #fff;
+                color: #4CAF50;
+                margin-right: 10px;
+            }
+            form {
+                max-width: 500px;
+                margin: 0 auto;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0px 0px 5px #aaa;
+                padding: 30px;
+            }
+            label {
+                display: block;
+                margin-bottom: 10px;
+                color: #666;
+                font-weight: bold;
+            }
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+            button[type="submit"] {
+                background-color: #4CAF50;
+                color: #fff;
+                padding: 10px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+            }
+            button[type="submit"]:hover {
+                background-color: #3e8e41;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Stock Tracker</h1>
+            <div>
+                <a href="#">Login</a>
+                <a href="#">User Profile</a>
+            </div>
+        </div>
+        <form action="/" method="post">
+            <fieldset>
+                <legend>Add a ticker to your portfolio</legend>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+                <label for="symbol">Symbol</label>
+                <input type="text" id="symbol" name="symbol" required placeholder="Enter a symbol">
+                <button type="submit">Submit</button>
+            </fieldset>
+        </form>
+    </body>
+</html>

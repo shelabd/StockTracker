@@ -1,24 +1,28 @@
-from flask import Flask, request
-from bson import ObjectId
-from urllib.parse import urlencode, quote_plus
+# Back-end
+
+import pymongo
 import configparser
 import urllib.parse
-import pymongo
-
-app = Flask(__name__)
+# Flask app
+from flask import Flask, request, render_template
+from bson import ObjectId
 
 # Read the credentials from the config file
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-#URL encode the password in case of special characters
+# URL encode the password in case of special characters
 encoded_password = urllib.parse.quote(config['DEFAULT']['MONGO_PASSWORD'], safe='')
 
-print(encoded_password)
 # Connect to MongoDB
-client = pymongo.MongoClient(f"mongodb+srv://{config['DEFAULT']['MONGO_USER']}:{encoded_password}@tickers.sgstcda.mongodb.net/?retryWrites=true&w=majority", serverSelectionTimeoutMS=60000)
-db = client["StockTracker"]
-collection = db["tickers"]
+def connect():
+    client = pymongo.MongoClient(f"mongodb+srv://{config['DEFAULT']['MONGO_USER']}:{encoded_password}@tickers.sgstcda.mongodb.net/?retryWrites=true&w=majority", serverSelectionTimeoutMS=60000)
+    db = client["StockTracker"]
+    collection = db["tickers"]
+    return collection
+
+app = Flask(__name__)
+collection = connect()
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -37,17 +41,7 @@ def index():
         # Insert the document into the collection
         collection.insert_one(new_ticker)
 
-    return """
-        <html>
-            <body>
-                <form action="/" method="post">
-                    <input type="text" name="name" placeholder="Name">
-                    <input type="text" name="symbol" placeholder="Symbol">
-                    <input type="submit" value="Submit">
-                </form>
-            </body>
-        </html>
-    """
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run()
